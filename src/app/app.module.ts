@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -12,11 +12,18 @@ import {PostService} from "./shared/services/post.service";
 import {HttpPostService} from "./shared/services/http/http-post.service";
 import {routes} from "./app.routing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {InitializationService} from "./shared/services/initialization.service";
+import { UserPostComponent } from './components/user-post/user-post.component';
+
+export function loadData(initializationService: InitializationService) {
+    return () => initializationService.load();
+}
 
 @NgModule({
     declarations: [
         AppComponent,
-        UserListComponent
+        UserListComponent,
+        UserPostComponent
     ],
     imports: [
         BrowserModule,
@@ -28,7 +35,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     providers: [
         {provide: UserService, useClass: HttpUserService},
         {provide: PostService, useClass: HttpPostService},
-
+        {
+            provide: APP_INITIALIZER,
+            useFactory: loadData,
+            deps: [InitializationService],
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

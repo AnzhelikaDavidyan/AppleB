@@ -1,14 +1,13 @@
 import {Routes} from "@angular/router";
 import {USER_LIST_URL} from "./shared/constant";
 import {UserListComponent} from "./components/user-list/user-list.component";
-import {UsersResolverService} from "./shared/services/users-resolver.service";
 
 export const routes: Routes = [
     {
         path: "",
-        component: UserListComponent, resolve: {data: UsersResolverService}
+        component: UserListComponent
     },
-    {path: USER_LIST_URL, component: UserListComponent, resolve: {data: UsersResolverService}},
+    {path: USER_LIST_URL, component: UserListComponent},
     // {
     //     path: "",
     //     component: AppComponent,

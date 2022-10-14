@@ -1,6 +1,6 @@
 import {UserModel} from "../model/user.model";
-import {UserData} from "../services/users-resolver.service";
 import {PostModel} from "../model/post.model";
+import {UserData} from "../services/initialization.service";
 
 export const buildUsersMap = (users: UserModel[]): Map<number, UserData> => {
     return users.reduce((a: any, b: UserModel) => {
