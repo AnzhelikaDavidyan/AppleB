@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable} from "rxjs";
-import {StoreService, UserData} from "../../shared/services/store.service";
+import {StoreService} from "../../shared/services/store.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../shared/model/user.model";
+import {UserData} from "../../shared/services/initialization.service";
+import {map, Observable} from "rxjs";
 
 @Component({
     selector: 'app-user-list',
@@ -10,10 +11,12 @@ import {UserModel} from "../../shared/model/user.model";
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-    public users: UserModel[] | undefined;
+    public userData: Observable<UserData[]> | undefined = this.store.data?.pipe(
+        map(data => [...data.values()])
+    );
 
-    constructor(private store: StoreService, private route: ActivatedRoute) {
-        this.users = this.route.snapshot.data['data'].map((item: UserData) => item.user);
+    constructor(private store: StoreService) {
+
     }
 
     ngOnInit(): void {

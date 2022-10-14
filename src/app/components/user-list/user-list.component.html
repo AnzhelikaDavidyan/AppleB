@@ -4,9 +4,11 @@
     </div>
     <div class="items">
         <nav>
-            <a *ngFor="let user of users ">
-                {{user.name}}
-            </a>
+            <div *ngFor="let userData of userData | async " class="item">
+                <a>
+                    {{userData.user.name}}
+                </a>
+            </div>
         </nav>
     </div>
 
